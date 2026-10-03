@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Help — Maison Veloré</title>
+<meta name="description" content="Shipping, returns, FAQ and contact for Maison Veloré, a fictional perfume house created as a web design concept.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Help — Maison Veloré">
+<meta property="og:description" content="Shipping, returns, FAQ and contact.">
+<meta property="og:image" content="assets/og-image.png">
+<link rel="icon" href="logo/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Cormorant+Infant:wght@400;500&family=Jost:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/pages.css">
+</head>
+<body data-page="help">
+<a class="skip-link" href="#main">Skip to content</a>
+<header data-site-header></header>
+<main id="main" class="wrap help">
+  <section id="shipping" class="help__block"><h1 class="t-h2">Shipping</h1>
+    <ul class="t-bodyl muted"><li>Free standard shipping on orders over €100, otherwise €6</li><li>Standard delivery: 2–5 business days within the EU, 5–10 internationally</li><li>Express delivery: 1–2 business days within the EU, €14</li><li>Every order is packed in recycled paper with a free sample</li></ul></section>
+  <section id="returns" class="help__block"><h2 class="t-h2">Returns</h2>
+    <ul class="t-bodyl muted"><li>Return unopened items within 30 days for a full refund</li><li>Opened fragrances cannot be returned for hygiene reasons, except if faulty</li><li>Start a return: write to hello@maisonvelore.example with your order number</li></ul></section>
+  <section id="faq" class="help__block"><h2 class="t-h2">FAQ</h2>
+    <details class="acc"><summary>How long does a bottle last?</summary><div class="acc__body">A 100 ml bottle typically lasts 6–12 months with regular use.</div></details>
+    <details class="acc"><summary>What is the difference between sizes?</summary><div class="acc__body">The fragrance is identical. 10 ml is a travel spray, 50 ml suits daily use, 100 ml is best value.</div></details>
+    <details class="acc"><summary>How should I store my perfume?</summary><div class="acc__body">Cool, dry, out of sunlight, with the cap on.</div></details>
+    <details class="acc"><summary>Are your bottles refillable?</summary><div class="acc__body">Yes. Refills are coming soon.</div></details>
+    <details class="acc"><summary>Can I send a gift?</summary><div class="acc__body">Yes, choose "This is a gift" in your bag for tissue paper and a handwritten card.</div></details>
+    <details class="acc"><summary>Which scent should I start with?</summary><div class="acc__body">Try the Discovery set (10 × 2 ml, €48) or <a class="link" href="quiz.html">take the quiz</a>.</div></details></section>
+  <section id="contact" class="help__block"><h2 class="t-h2">We would love to hear from you.</h2>
+    <form class="contact-form" data-contact novalidate>
+      <label><span class="t-label">Name</span><input class="field" name="name" autocomplete="name" required></label>
+      <label><span class="t-label">Email</span><input class="field" name="email" type="email" autocomplete="email" required></label>
+      <label class="contact-form__wide"><span class="t-label">Message</span><textarea class="field" name="message" rows="5" required></textarea></label>
+      <button class="btn btn--primary" type="submit">Send message</button>
+      <p class="t-small" data-msg role="status"></p>
+    </form></section>
+</main>
+<footer data-site-footer></footer>
+<script src="js/site.js" defer></script>
+<script>
+addEventListener('DOMContentLoaded', () => {
+  const f = document.querySelector('[data-contact]');
+  f.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const msg = f.querySelector('[data-msg]');
+    const empty = [...f.querySelectorAll('[required]')].find((i) => !i.value.trim());
+    if (empty) { msg.textContent = 'Please fill in this field'; msg.style.color = '#9b3b3b'; empty.focus(); return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.email.value.trim())) { msg.textContent = 'Please enter a valid email address.'; msg.style.color = '#9b3b3b'; f.email.focus(); return; }
+    msg.textContent = "Thank you, we'll reply within two business days."; msg.style.color = ''; f.reset();
+  });
+});
+</script>
+</body>
+</html>

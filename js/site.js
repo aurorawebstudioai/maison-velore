@@ -55,7 +55,7 @@
   const write = (c) => { try { localStorage.setItem(KEY, JSON.stringify(c)); } catch (e) {} dispatchEvent(new CustomEvent('mv:cart', { detail: c })); };
   MV.cart = {
     get: read,
-    count: () => read().items.reduce((n, i) => n + i.qty, 0),
+    count: () => read().items.length, // lines, as in the Figma cart ("3 items" with one line at quantity 2)
     add(id, size, qty = 1) { const c = read(); const it = c.items.find((i) => i.id === id && i.size === size); if (it) it.qty += qty; else c.items.push({ id, size, qty }); write(c); },
     setQty(id, size, qty) { const c = read(); const it = c.items.find((i) => i.id === id && i.size === size); if (!it) return; it.qty = Math.max(1, qty); write(c); },
     remove(id, size) { const c = read(); c.items = c.items.filter((i) => !(i.id === id && i.size === size)); write(c); },
@@ -107,7 +107,7 @@
     const cols = [
       ['Shop', [['All fragrances', 'catalog.html'], ['Bestsellers', 'index.html#bestsellers'], ['Scent families', 'index.html#scent-families'], ['Gift sets', 'catalog.html'], ['Discovery set', 'index.html#discovery-set']]],
       ['About', [['Our story', 'maison.html'], ['Sustainability', 'maison.html'], ['Ingredients', 'journal.html?id=art-of-natural-ingredients'], ['Craftsmanship', 'journal.html?id=art-of-natural-ingredients']]],
-      ['Help', [['Shipping', 'cart.html#help'], ['Returns', 'cart.html#help'], ['FAQ', 'cart.html#help'], ['Contact', 'cart.html#help']]],
+      ['Help', [['Shipping', 'help.html#shipping'], ['Returns', 'help.html#returns'], ['FAQ', 'help.html#faq'], ['Contact', 'help.html#contact']]],
       ['Journal', [['All articles', 'journal.html'], ['Places', 'journal.html?id=scent-of-the-mediterranean'], ['Craftsmanship', 'journal.html?id=art-of-natural-ingredients'], ['Guides', 'journal.html?id=fragrance-in-summer']]],
       ['Follow us', [['Instagram', '#'], ['Facebook', '#'], ['Pinterest', '#'], ['YouTube', '#']]],
     ];

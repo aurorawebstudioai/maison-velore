@@ -226,3 +226,5 @@ input, select, textarea { font: inherit; color: inherit; }
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
   .reveal { opacity: 1; transform: none; }
 }
+
+[tabindex="-1"]:focus { outline: none; }

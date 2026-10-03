@@ -1,0 +1,62 @@
+/* Cart — Figma "Cart", "Cart — empty", "Cart — checkout clicked" */
+.cart-head { padding-top: 48px; padding-bottom: 48px; display: flex; flex-direction: column; gap: 16px; }
+.cart-head p { margin: 0; min-height: 30px; }
+.cart-grid { display: grid; grid-template-columns: 792px 1fr; gap: 24px; align-items: start; padding-bottom: 120px; }
+.bag-col { display: flex; flex-direction: column; gap: 56px; }
+.lines { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+.line { display: grid; grid-template-columns: 120px 1fr auto; gap: 24px; align-items: center; padding: 24px 0; border-bottom: 1px solid var(--line); }
+.line__img { width: 120px; height: 120px; background: var(--paper); display: grid; place-items: center; }
+.line__img img { width: 100%; height: 100%; object-fit: contain; }
+.line__details { display: flex; flex-direction: column; gap: 8px; }
+.line__details p { margin: 0; }
+.line__actions { display: flex; align-items: center; gap: 24px; padding-top: 8px; }
+.line__price { margin: 0; }
+.stepper { display: inline-flex; align-items: center; border: 1px solid var(--line); }
+.stepper button, .stepper output { width: 44px; height: 44px; display: grid; place-items: center; font-size: 16px; }
+.stepper button[disabled] { opacity: .35; cursor: default; }
+.stepper button:not([disabled]):hover { background: var(--paper); }
+.free-sample { display: flex; flex-direction: column; gap: 16px; }
+.free-sample p { margin: 0; }
+.samples { display: grid; grid-template-columns: repeat(10, 1fr); gap: 8px; padding-top: 8px; }
+.sample { position: relative; display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; }
+.sample input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.sample__img { width: 100%; aspect-ratio: 72 / 90; background: var(--paper); border: 1px solid transparent; display: block; }
+.sample__img img { width: 100%; height: 100%; object-fit: contain; }
+.sample__label { font-size: 12px; color: var(--muted); }
+.sample input:checked + .sample__img { border-color: var(--ink); }
+.sample input:checked ~ .sample__label { color: var(--ink); }
+.sample input:focus-visible + .sample__img { outline: 2px solid var(--gold); outline-offset: 2px; }
+.gift { border-top: 1px solid var(--line); padding-top: 32px; display: flex; flex-direction: column; gap: 4px; }
+.gift p { margin: 0 0 0 28px; }
+
+.summary { background: var(--paper); border: 1px solid var(--line); padding: 32px; display: flex; flex-direction: column; gap: 24px; position: sticky; top: 24px; }
+.summary__rows { margin: 0; display: flex; flex-direction: column; gap: 16px; }
+.summary__rows div { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px; }
+.summary__rows dt, .summary__rows dd { margin: 0; font-size: 16px; }
+.summary__rows p { flex-basis: 100%; margin: 0; }
+.summary__total { display: flex; justify-content: space-between; align-items: baseline; border-top: 1px solid var(--line); padding-top: 24px; }
+.summary__total .num { font-size: 32px; font-weight: 500; }
+.promo { display: flex; gap: 8px; }
+.promo .btn { min-height: 48px; padding: 0 24px; }
+.trust { display: flex; justify-content: center; gap: 16px; margin: 0; }
+.summary__continue { align-self: center; }
+.cart-empty { display: flex; flex-direction: column; align-items: center; gap: 32px; padding: 120px 24px; margin-bottom: 120px; border: 1px dashed rgba(42, 36, 32, .15); text-align: center; }
+.cart-empty p { margin: 0; }
+.modal__box .t-h3 { margin: 0; }
+
+@media (max-width: 1279px) { .cart-grid { grid-template-columns: 1fr 360px; } }
+@media (max-width: 899px) {
+  .cart-grid { grid-template-columns: 1fr; padding-bottom: 64px; }
+  .summary { position: static; }
+  .samples { grid-template-columns: repeat(5, 1fr); row-gap: 16px; }
+}
+@media (max-width: 599px) {
+  .cart-head { padding-top: 24px; padding-bottom: 24px; gap: 8px; }
+  .line { grid-template-columns: 88px 1fr; gap: 16px; align-items: start; }
+  .line__img { width: 88px; height: 88px; }
+  .line__price { grid-column: 2; }
+  .line__actions { gap: 16px; }
+  .bag-col { gap: 40px; }
+  .summary { padding: 24px; }
+  .cart-empty { padding: 64px 24px; margin-bottom: 64px; }
+}
