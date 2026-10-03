@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fragrance — Maison Veloré</title>
+<meta name="description" content="Ten artisanal eau de parfum compositions inspired by nature. A fictional brand created as a web design concept.">
+<meta property="og:type" content="product">
+<meta property="og:title" content="Maison Veloré">
+<meta property="og:description" content="Ten artisanal eau de parfum compositions inspired by nature. A fictional brand created as a web design concept.">
+<meta property="og:image" content="assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="logo/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Cormorant+Infant:wght@400;500&family=Jost:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/home.css">
+<link rel="stylesheet" href="css/product.css">
+</head>
+<body data-page="product">
+<a class="skip-link" href="#main">Skip to content</a>
+<header data-site-header></header>
+<main id="main" data-product>
+  <div class="wrap"><nav class="breadcrumbs" aria-label="Breadcrumb" data-crumbs><a href="index.html">Home</a><span aria-hidden="true">/</span><a href="catalog.html">Fragrances</a></nav></div>
+  <section class="pdp wrap" aria-label="Product">
+    <div class="gallery" data-gallery></div>
+    <div class="info" data-info></div>
+  </section>
+  <section class="section scent-story" aria-labelledby="ss-h">
+    <div class="wrap">
+      <div class="section-head section-head--center"><p class="t-label gold" data-ss-label></p><h2 class="t-h2" id="ss-h">The scent story</h2></div>
+      <div class="pyramid" data-pyramid></div>
+    </div>
+  </section>
+  <section class="section" aria-labelledby="pairs-h">
+    <div class="wrap">
+      <div class="section-head"><h2 class="t-h2" id="pairs-h">Pairs well with</h2></div>
+      <div class="cards-4 scroll-row" data-pairs></div>
+    </div>
+  </section>
+  <section class="maison-story" aria-labelledby="ms-h">
+    <div class="wrap maison-story__grid">
+      <div class="maison-story__img" data-img="story_02_hands" data-sizes="(max-width: 599px) 100vw, 486px" data-alt="Hands blending a fragrance with a glass dropper"></div>
+      <div class="maison-story__text">
+        <p class="t-label">Our story</p>
+        <h2 class="t-h2" id="ms-h">The Maison story</h2>
+        <p class="t-bodyl">Maison Veloré creates exceptional fragrances for a more conscious tomorrow. Rooted in nature and shaped by craftsmanship, our scents celebrate the places, people and emotions that make life more meaningful.</p>
+        <a class="link" href="maison.html">Discover our story →</a>
+      </div>
+    </div>
+  </section>
+  <section class="section" id="reviews" aria-labelledby="cr-h">
+    <div class="wrap">
+      <div class="section-head"><h2 class="t-h2" id="cr-h">Customer reviews</h2></div>
+      <div class="cr-grid">
+        <div class="cr-summary">
+          <p class="cr-score num">4.9</p>
+          <p class="stars cr-stars" aria-label="4.9 out of 5 stars">★★★★★</p>
+          <p class="t-small muted">128 reviews</p>
+          <div class="cr-bars" aria-hidden="true">
+            <div><span>5 ★</span><i><b style="width:92%"></b></i></div><div><span>4 ★</span><i><b style="width:6%"></b></i></div><div><span>3 ★</span><i><b style="width:2%"></b></i></div><div><span>2 ★</span><i><b style="width:0"></b></i></div><div><span>1 ★</span><i><b style="width:0"></b></i></div>
+          </div>
+        </div>
+        <div class="cr-cards scroll-row" data-reviews-list></div>
+      </div>
+    </div>
+  </section>
+  <section class="section" aria-labelledby="yml-h" style="padding-top:0">
+    <div class="wrap">
+      <div class="section-head"><h2 class="t-h2" id="yml-h">You may also like</h2></div>
+      <div class="cards-4 scroll-row" data-also></div>
+    </div>
+  </section>
+  <div class="sticky-buy" data-sticky aria-hidden="true">
+    <div class="sticky-buy__price"><span class="num" data-sticky-price></span><span class="t-small muted" data-sticky-size></span></div>
+    <button class="btn btn--accent btn--tall" type="button" data-sticky-add tabindex="-1">Add to bag</button>
+  </div>
+</main>
+<footer data-site-footer></footer>
+<script src="js/site.js" defer></script>
+<script src="js/product.js" defer></script>
+</body>
+</html>

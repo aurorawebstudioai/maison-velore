@@ -47,9 +47,11 @@ STORE = [
     (r'^story_', [640, 1200]),
     (r'^journal_', [600, 1200]),
     (r'^box_', [600, 1120]),
-    (r'^vial_', [200, 400]),
+    (r'^vial_', [200, 400, 1120]),
     (r'^vials_all$', [600, 1200]),
-    (r'^bottle_[a-z]+_(10|50)ml$', [300, 600]),
+    (r'^bottle_[a-z]+_(10|50)ml$', [300, 600, 1120]),
+    # scent-story ingredient images on the product page (one per note tier)
+    (r'^(floral_peony_petal_01|floral_peony_01|floral_jasmine_01|citrus_bergamot_01|citrus_neroli_blossom_01|aquatic_driftwood_01|oriental_cardamom_01|woody_cedar_branch_01|woody_vetiver_roots_01|oriental_saffron_01|oriental_cinnamon_01|oriental_amber_01|aquatic_salt_crystals_01|aquatic_sea_pebble_01|green_basil_01|green_fig_half_01|lavender_rosemary_01|lavender_lavender_sprig_01|woody_moss_01|gourmand_almond_01|gourmand_vanilla_flower_01|gourmand_tonka_beans_01|rose_raspberry_01|rose_red_rose_01|rose_patchouli_leaf_01|iris_violet_leaf_01|iris_iris_flower_01|iris_cotton_flower_01)$', [360]),
     (r'^bottle_[a-z]+$', [400, 800]),
     (r'^bg_\d\d_', [480, 960]),
 ]

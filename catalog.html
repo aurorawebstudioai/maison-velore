@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>All fragrances — Maison Veloré</title>
+<meta name="description" content="Ten compositions. One house. Ten artisanal eau de parfum compositions inspired by nature — a fictional brand created as a web design concept.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="All fragrances — Maison Veloré">
+<meta property="og:description" content="Ten compositions. One house.">
+<meta property="og:image" content="assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="logo/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Cormorant+Infant:wght@400;500&family=Jost:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/catalog.css">
+</head>
+<body data-page="catalog">
+<a class="skip-link" href="#main">Skip to content</a>
+<header data-site-header></header>
+<main id="main">
+  <div class="wrap cat-head">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">/</span><span aria-current="page">Fragrances</span></nav>
+    <h1 class="t-display">All fragrances</h1>
+    <p class="t-bodyl muted">Ten compositions. One house.</p>
+  </div>
+  <div class="wrap">
+    <div class="toolbar">
+      <div class="toolbar__chips" data-dropdowns></div>
+      <div class="toolbar__right">
+        <p class="t-small muted" data-count aria-live="polite">Showing 10 fragrances</p>
+        <label class="sort"><span class="t-small muted">Sort by</span>
+          <span class="sort__select"><select data-sort aria-label="Sort by"><option value="featured">Featured</option><option value="price-asc">Price low to high</option><option value="price-desc">Price high to low</option><option value="newest">Newest</option></select></span></label>
+      </div>
+    </div>
+  </div>
+  <div class="wrap cat-body">
+    <aside class="sidebar" aria-label="Filters" data-sidebar></aside>
+    <div class="cat-results">
+      <div class="active-filters" data-active hidden></div>
+      <div class="cat-grid" data-grid></div>
+    </div>
+  </div>
+</main>
+<footer data-site-footer></footer>
+<script src="js/site.js" defer></script>
+<script src="js/catalog.js" defer></script>
+</body>
+</html>
