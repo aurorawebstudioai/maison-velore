@@ -1,0 +1,50 @@
+/* Hero slider — stage is the Figma frame (1440×900 desktop, 375×812 mobile) scaled to the viewport width */
+.hero { position: relative; overflow: hidden; background: #e9dcd3; color: var(--hero-text, var(--ink)); touch-action: pan-y; user-select: none; -webkit-user-select: none; }
+.hero__viewport { position: relative; width: 100%; height: 62.5vw; overflow: hidden; }
+.hero[data-mode="mobile"] .hero__viewport { height: calc((812 - 44) / 375 * 100vw); }
+.hero__stage { position: absolute; left: 0; top: 0; width: 1440px; height: 900px; transform-origin: 0 0; }
+.hero__slides, .slide { position: absolute; inset: 0; }
+.slide { visibility: hidden; contain: layout style; }
+.slide .w { position: absolute; inset: 0; pointer-events: none; }
+.slide .px { inset: auto; }
+.slide .tr, .slide .fl { transform-origin: 50% 50%; }
+.slide .l { position: absolute; left: 0; top: 0; transform-origin: 0 0; background-repeat: no-repeat; }
+.hero:not(.is-ready) .hero__viewport { background: linear-gradient(120deg, #f4dfe0, #ead6d6); }
+.hero.is-error .hero__viewport::after { content: "The slider could not load. Please serve the site over http (see README)."; position: absolute; left: 24px; bottom: 24px; font-size: 14px; }
+
+/* bottle label (Figma "Bottle Label" component, rendered as text) */
+.bottle-label { position: absolute; inset: 0; overflow: hidden; box-shadow: inset 0 0 0 1px rgba(168, 130, 79, .18); }
+.bottle-label__in { position: absolute; left: 0; top: 0; width: 200px; height: 145.5px; transform-origin: 0 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 7px; color: #3a2a24; text-align: center; }
+.bl-brand { font: 400 24px/1 var(--serif); letter-spacing: .01em; }
+.bl-rule { width: 34px; height: 1px; background: #b08a55; margin: 2px 0; }
+.bl-name { font: 400 17px/1.1 var(--serif); }
+.bl-meta { font: 500 7.4px/1 var(--sans); letter-spacing: .2em; }
+
+/* per-slide text (positions/sizes from data/slides.json) */
+.slide-text { position: absolute; inset: 0; pointer-events: none; }
+.st { position: absolute; margin: 0; color: var(--hero-text); pointer-events: auto; }
+.st--family { font-family: var(--sans); font-weight: 400; text-transform: uppercase; }
+.st--title { font-family: var(--serif); font-weight: 400; }
+.st--title a:hover { opacity: .85; }
+.st--notes { font-family: var(--serif); font-weight: 500; }
+.st--price { font-family: var(--numerals); font-weight: 500; font-variant-numeric: lining-nums; }
+
+/* controls */
+.hero-ui { position: absolute; inset: 0; z-index: 10; pointer-events: none; color: var(--hero-text); }
+.hero-ui > * { position: absolute; pointer-events: auto; }
+.hero-cta { min-height: 0; padding: 0; background: var(--hero-accent); color: var(--hero-on-accent); font: 400 16px/1 var(--sans); letter-spacing: .02em; transition: filter .2s; }
+.hero-cta:hover { filter: brightness(1.08); }
+.hero-counter { margin: 0; font-weight: 500; letter-spacing: .02em; line-height: 1.2; }
+.hero-progress { display: flex; gap: 10px; height: 44px; align-items: center; }
+.hero-progress button { flex: 1; height: 44px; display: flex; align-items: center; }
+.hero-progress span { position: relative; display: block; width: 100%; height: 1px; background: color-mix(in srgb, currentColor 35%, transparent); overflow: visible; }
+.hero-progress button[aria-current="true"] span { height: 2px; }
+.hero-progress i { background: var(--hero-accent) !important; }
+.hero-progress i { position: absolute; inset: 0; background: currentColor; transform-origin: 0 50%; transform: scaleX(0); }
+.hero-progress button:hover span { background: color-mix(in srgb, currentColor 60%, transparent); }
+.hero-arrow { width: 46px; height: 46px; border-radius: 50%; }
+.hero-arrow svg { width: 46px; height: 46px; fill: none; stroke: currentColor; stroke-width: 1; }
+.hero-arrow svg path { stroke-width: 1.3; }
+.hero-arrow:hover svg circle { fill: color-mix(in srgb, currentColor 10%, transparent); }
+.hero[data-mode="mobile"] .hero-progress { gap: 6px; }
+.hero[data-mode="mobile"] .hero-cta { font-size: 13px; }
