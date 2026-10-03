@@ -25,6 +25,30 @@
     return `<img class="${cls}" src="${def}" srcset="${srcset}" sizes="${sizes}" width="${ws[ws.length - 1]}" height="${h}" alt="${MV.esc(alt)}" ${eager ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async" ${attrs}>`;
   };
 
+  /* extra (non-perfume) products from content: Discovery set, Gift set */
+  MV.EXTRA = {
+    'discovery-set': { id: 'discovery-set', name: 'Discovery set', family: '10 × 2 ml', price: 48, img: 'box_discovery' },
+    'gift-set': { id: 'gift-set', name: 'Gift set', family: '100 ml + 2 × 10 ml', price: 235, img: 'box_giftset' },
+  };
+  /* fill <div data-img="name" data-sizes data-alt> with a responsive <img> */
+  MV.hydrate = (man, root = document) => root.querySelectorAll('[data-img]').forEach((el) => {
+    if (el.dataset.done) return; el.dataset.done = 1;
+    el.insertAdjacentHTML('beforeend', MV.img(man, el.dataset.img, { sizes: el.dataset.sizes || '100vw', alt: el.dataset.alt || '', eager: el.hasAttribute('data-eager') }));
+  });
+  /* reviews from content/Тексты_сайта.md */
+  MV.REVIEWS = [
+    ['A truly exquisite fragrance that feels both timeless and modern. Maison Veloré is in a class of its own.', 'Sophie L., Paris', 5],
+    ["Beautifully crafted, with such depth and character. It's more than a perfume, it's an experience.", 'Daniel K., Berlin', 5],
+    ['From the packaging to the scent, every detail feels intentional. Simply exceptional.', 'Emma R., London', 5],
+    ["I get asked what I'm wearing every single time. Bois Intemporel has become my signature.", 'Marcus T., Amsterdam', 5],
+    ["Soleil d'Agrumes is the first citrus that stays with me all day without turning sharp.", 'Ana P., Lisbon', 5],
+    ['The discovery set was the best way to choose. I ended up ordering two full bottles.', 'Julia W., Vienna', 5],
+    ['Calm, clean and unusual. Iris Poudré smells like a luxury I did not know I wanted.', 'Clara M., Copenhagen', 5],
+    ['Rose Impériale lasts from morning to midnight and gets compliments all the way through.', 'Isabella F., Milan', 5],
+    ['Velours de Vanille is cozy without being sweet. I wear it from October to March.', 'Tom H., Dublin', 4],
+  ];
+  MV.reviewCard = ([q, a, n]) => `<figure class="review"><p class="stars" aria-label="${n} out of 5 stars">${'★'.repeat(n)}${'☆'.repeat(5 - n)}</p><blockquote class="t-quote">"${MV.esc(q)}"</blockquote><figcaption class="t-small muted">${MV.esc(a)}</figcaption></figure>`;
+
   /* ---------------- cart (localStorage) ---------------- */
   const KEY = 'mv-cart-v1';
   const read = () => { try { return Object.assign({ items: [], sample: null, gift: false }, JSON.parse(localStorage.getItem(KEY)) || {}); } catch (e) { return { items: [], sample: null, gift: false }; } };
@@ -39,7 +63,7 @@
     setGift(v) { const c = read(); c.gift = !!v; write(c); },
     clear() { write({ items: [], sample: null, gift: false }); },
   };
-  MV.priceOf = (p, size) => (size === '2ml' ? p.sample_2ml_eur : p.prices_eur[size]);
+  MV.priceOf = (p, size) => (p.price != null ? p.price : size === '2ml' ? p.sample_2ml_eur : p.prices_eur[size]);
   MV.sizeLabel = (size) => ({ '2ml': '2 ml', '10ml': '10 ml', '50ml': '50 ml', '100ml': '100 ml' }[size] || size);
 
   /* ---------------- header ---------------- */
@@ -48,7 +72,7 @@
   const CLOSE = '<svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><path d="M1 1l12 12M13 1L1 13"/></svg>';
   MV.icons = { BAG, BURGER, CLOSE };
   const page = document.body.dataset.page;
-  const links = [['catalog.html', 'Shop', 'catalog'], ['index.html#our-story', 'Our Maison', 'maison'], ['journal.html', 'Journal', 'journal']];
+  const links = [['catalog.html', 'Shop', 'catalog'], ['maison.html', 'Our Maison', 'maison'], ['journal.html', 'Journal', 'journal']];
   const header = document.querySelector('[data-site-header]');
   if (header) {
     header.className = 'site-header' + (header.dataset.over !== undefined ? ' site-header--over' : '');
@@ -64,7 +88,7 @@
     panel.innerHTML = `<div class="menu-panel__bar"><a class="brand" href="index.html">Maison Veloré</a>
       <div class="nav-actions"><a class="bag-link" href="cart.html" aria-label="Your bag">${BAG}<span data-bag-count>(0)</span></a>
       <button class="menu-toggle" type="button" style="display:inline-flex" aria-label="Close menu" data-close>${CLOSE}</button></div></div>
-      <ul class="menu-panel__links"><li><a href="catalog.html">Shop</a></li><li><a href="index.html#our-story">Our Maison</a></li><li><a href="journal.html">Journal</a></li><li><a href="quiz.html">Quiz</a></li></ul>
+      <ul class="menu-panel__links"><li><a href="catalog.html">Shop</a></li><li><a href="maison.html">Our Maison</a></li><li><a href="journal.html">Journal</a></li><li><a href="quiz.html">Quiz</a></li></ul>
       <p class="menu-panel__foot">Scents for a more beautiful tomorrow</p>`;
     document.body.appendChild(panel);
     const toggle = header.querySelector('.menu-toggle');
@@ -82,7 +106,7 @@
   if (footer) {
     const cols = [
       ['Shop', [['All fragrances', 'catalog.html'], ['Bestsellers', 'index.html#bestsellers'], ['Scent families', 'index.html#scent-families'], ['Gift sets', 'catalog.html'], ['Discovery set', 'index.html#discovery-set']]],
-      ['About', [['Our story', 'index.html#our-story'], ['Sustainability', 'index.html#our-story'], ['Ingredients', 'journal.html?id=art-of-natural-ingredients'], ['Craftsmanship', 'journal.html?id=art-of-natural-ingredients']]],
+      ['About', [['Our story', 'maison.html'], ['Sustainability', 'maison.html'], ['Ingredients', 'journal.html?id=art-of-natural-ingredients'], ['Craftsmanship', 'journal.html?id=art-of-natural-ingredients']]],
       ['Help', [['Shipping', 'cart.html#help'], ['Returns', 'cart.html#help'], ['FAQ', 'cart.html#help'], ['Contact', 'cart.html#help']]],
       ['Journal', [['All articles', 'journal.html'], ['Places', 'journal.html?id=scent-of-the-mediterranean'], ['Craftsmanship', 'journal.html?id=art-of-natural-ingredients'], ['Guides', 'journal.html?id=fragrance-in-summer']]],
       ['Follow us', [['Instagram', '#'], ['Facebook', '#'], ['Pinterest', '#'], ['YouTube', '#']]],

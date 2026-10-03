@@ -25,7 +25,96 @@
   <section class="hero" data-hero aria-roledescription="carousel" aria-label="Fragrances">
     <div class="hero__viewport"></div>
   </section>
-  <div data-home></div>
+  <section class="section home-story" id="our-story" aria-labelledby="story-h">
+    <div class="wrap">
+      <div class="story-grid">
+        <div class="story-collage reveal">
+          <div class="story-collage__a" data-img="story_02_hands" data-sizes="(max-width: 599px) 100vw, 430px" data-alt="Hands blending a fragrance with a glass dropper"></div>
+          <div class="story-collage__b" data-img="story_04_harvest" data-sizes="250px" data-alt="Picking peonies and jasmine at sunrise"></div>
+        </div>
+        <div class="story-text reveal">
+          <p class="t-label gold">Our story</p>
+          <h2 class="t-h2" id="story-h">A Maison inspired by a more thoughtful world</h2>
+          <p class="t-bodyl muted">Maison Veloré creates exceptional fragrances for a more conscious tomorrow. Rooted in nature and shaped by craftsmanship, our scents celebrate the places, people and emotions that make life more meaningful.</p>
+          <a class="link" href="maison.html">Discover our story →</a>
+        </div>
+      </div>
+      <div class="pillars">
+        <p class="t-label gold">How we work</p>
+        <ul>
+          <li class="reveal"><h3 class="t-h4">Rare ingredients.</h3><p class="t-small muted">We work with growers and distillers who share our standards, and we let the raw materials lead the composition.</p></li>
+          <li class="reveal"><h3 class="t-h4">Patient craft.</h3><p class="t-small muted">Each formula is tested, rested and adjusted. Nothing leaves the atelier until it is ready.</p></li>
+          <li class="reveal"><h3 class="t-h4">Quiet luxury.</h3><p class="t-small muted">Heavy glass, natural stone and wood caps, recyclable paper packaging. Beautiful objects that are meant to be kept.</p></li>
+          <li class="reveal"><h3 class="t-h4">A lighter footprint.</h3><p class="t-small muted">Refillable bottles and responsible sourcing are part of how we design, not a slogan we add later.</p></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--paper" id="bestsellers" aria-labelledby="best-h">
+    <div class="wrap">
+      <div class="section-head"><div><p class="t-label gold">Bestsellers</p><h2 class="t-h2" id="best-h">Icons for every mood</h2></div><a class="link" href="catalog.html">All fragrances →</a></div>
+      <div class="cards-4 scroll-row" data-cards="bois-intemporel,soleil-dagrumes,rose-imperiale,iris-poudre"></div>
+    </div>
+  </section>
+
+  <section class="section home-families" id="scent-families" aria-labelledby="fam-h">
+    <div class="wrap">
+      <div class="section-head section-head--center"><p class="t-label gold">Discover by scent family</p><h2 class="t-h2" id="fam-h">Ten worlds of emotion</h2></div>
+      <div class="tiles" data-tiles></div>
+    </div>
+  </section>
+
+  <section class="home-discovery" id="discovery-set" aria-labelledby="disc-h">
+    <div class="home-discovery__media" data-img="box_discovery" data-sizes="(max-width: 899px) 100vw, 50vw" data-alt="The Maison Veloré discovery set with ten vials"></div>
+    <div class="home-discovery__text reveal">
+      <p class="t-label gold">Which scent should I start with?</p>
+      <h2 class="t-h2" id="disc-h">Discovery set</h2>
+      <p class="disc-price"><span class="t-body muted">10 × 2 ml</span><span class="num">€48</span></p>
+      <p class="t-body muted">Try the Discovery set (10 × 2 ml, €48) or take the quiz.</p>
+      <div class="btn-row"><button class="btn btn--primary" type="button" data-add-discovery>Add to bag</button><a class="btn btn--secondary" href="quiz.html">Start the quiz</a></div>
+    </div>
+  </section>
+
+  <section class="home-quiz" aria-labelledby="quiz-h">
+    <div class="home-quiz__bg" data-img="story_05_ingredients" data-sizes="100vw" data-alt=""></div>
+    <div class="home-quiz__card reveal">
+      <p class="t-label gold">Question 1 of 5</p>
+      <h2 class="t-h2" id="quiz-h">Find your signature scent</h2>
+      <p class="t-body muted">Five quick questions. One fragrance made for you.</p>
+      <span class="rule" aria-hidden="true"></span>
+      <p class="quiz-q" data-quiz-q></p>
+      <div class="quiz-pills" data-quiz-answers></div>
+      <a class="btn btn--primary" href="quiz.html">Start the quiz</a>
+    </div>
+  </section>
+
+  <section class="section" id="journal" aria-labelledby="jour-h">
+    <div class="wrap">
+      <div class="section-head"><div><p class="t-label gold">The journal</p><h2 class="t-h2" id="jour-h">Ideas, places and the art of fragrance</h2></div><a class="link" href="journal.html">All articles →</a></div>
+      <div class="journal-grid" data-journal></div>
+    </div>
+  </section>
+
+  <section class="section section--sand" aria-labelledby="rev-h">
+    <div class="wrap">
+      <div class="section-head section-head--center"><p class="t-label gold">Kind words</p><h2 class="t-h2" id="rev-h">Loved around the world</h2></div>
+      <div class="reviews" data-reviews aria-roledescription="carousel"></div>
+    </div>
+  </section>
+
+  <section class="section home-news" aria-labelledby="news-h">
+    <div class="wrap">
+      <div class="section-head section-head--center"><p class="t-label gold">Stay in touch</p><h2 class="t-h2" id="news-h">Be the first to know</h2></div>
+      <p class="t-bodyl muted news-body">Join our newsletter for exclusive launches, inspiring stories and private invitations.</p>
+      <form class="news-form" data-newsletter novalidate>
+        <label class="visually-hidden" for="news-email">Your email address</label>
+        <input class="field" id="news-email" name="email" type="email" placeholder="Your email address" autocomplete="email" required>
+        <button class="btn btn--primary" type="submit">Subscribe →</button>
+        <p class="news-msg t-small" data-msg role="status"></p>
+      </form>
+    </div>
+  </section>
 </main>
 <footer data-site-footer></footer>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
