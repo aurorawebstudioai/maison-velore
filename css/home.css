@@ -105,7 +105,7 @@
   .story-collage__a { position: relative; width: 100%; height: auto; aspect-ratio: 4 / 5; }
   .story-collage__b { display: none; }
   .story-text { gap: 24px; }
-  .pillars { margin-top: 64px; }
+  .pillars { display: none; }
   .pillars ul { grid-template-columns: 1fr; gap: 24px; }
   .tiles { grid-template-columns: 1fr 1fr; column-gap: 16px; row-gap: 24px; }
   .tile { gap: 8px; }
@@ -134,4 +134,15 @@
   .news-body { text-align: left; margin: 0 0 24px; }
   .news-form { flex-direction: column; }
   .news-form .field, .news-form .btn { flex: none; width: 100%; min-height: 56px; }
+}
+
+/* section heights from the Figma "Home — Desktop" frame (1440): our_story 1242, bestsellers 936, discovery 640, quiz 816, journal 790, reviews 792, newsletter 523 */
+@media (min-width: 1280px) {
+  #our-story { min-height: 1242px; }
+  #bestsellers { min-height: 936px; }
+  .home-discovery { min-height: 640px; }
+  .home-quiz { padding-top: 102px; padding-bottom: 102px; }
+  #journal { min-height: 790px; }
+  section[aria-labelledby="rev-h"] { min-height: 792px; }
+  .home-news { padding-bottom: 91px; }
 }

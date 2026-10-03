@@ -1,5 +1,5 @@
 /* Cart — Figma "Cart", "Cart — empty", "Cart — checkout clicked" */
-.cart-head { padding-top: 48px; padding-bottom: 48px; display: flex; flex-direction: column; gap: 16px; }
+.cart-head { padding-top: 24px; padding-bottom: 48px; display: flex; flex-direction: column; gap: 16px; }
 .cart-head p { margin: 0; min-height: 30px; }
 .cart-grid { display: grid; grid-template-columns: 792px 1fr; gap: 24px; align-items: start; padding-bottom: 120px; }
 .bag-col { display: flex; flex-direction: column; gap: 56px; }
@@ -40,7 +40,7 @@
 .promo .btn { min-height: 48px; padding: 0 24px; }
 .trust { display: flex; justify-content: center; gap: 16px; margin: 0; }
 .summary__continue { align-self: center; }
-.cart-empty { display: flex; flex-direction: column; align-items: center; gap: 32px; padding: 120px 24px; margin-bottom: 120px; border: 1px dashed rgba(42, 36, 32, .15); text-align: center; }
+.cart-empty { display: flex; flex-direction: column; align-items: center; gap: 32px; padding: 160px 24px; margin-bottom: 0; border: 1px dashed rgba(42, 36, 32, .15); text-align: center; }
 .cart-empty p { margin: 0; }
 .modal__box .t-h3 { margin: 0; }
 
@@ -58,5 +58,5 @@
   .line__actions { gap: 16px; }
   .bag-col { gap: 40px; }
   .summary { padding: 24px; }
-  .cart-empty { padding: 64px 24px; margin-bottom: 64px; }
+  .cart-empty { padding: 96px 24px; }
 }

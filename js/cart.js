@@ -65,7 +65,9 @@
       if (focusSel) { const el = root.querySelector(focusSel); if (el) el.focus(); }
     };
     const renderAlso = (inBag) => {
-      const list = products.filter((p) => !inBag.includes(p.id)).slice(0, 4);
+      /* Figma "Cart": Nuit Orientale, Brise Marine, Jardin Vert, Iris Poudré — skip any already in the bag, then fill up */
+      const pref = ['nuit-orientale', 'brise-marine', 'jardin-vert', 'iris-poudre'];
+      const list = [...pref.map((id) => byId[id]), ...products].filter((p, i, a) => !inBag.includes(p.id) && a.indexOf(p) === i).slice(0, 4);
       document.querySelector('[data-also]').innerHTML = list.map((p) => MV.card(man, p)).join('');
     };
 

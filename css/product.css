@@ -39,6 +39,7 @@
 .tier__img { width: 176px; height: 176px; margin-bottom: 8px; }
 .tier__img img { width: 100%; height: 100%; object-fit: contain; }
 .tier .t-body { margin: 0; }
+.tier__inline { display: none; }
 .pyramid { grid-template-columns: repeat(3, 1fr); }
 
 /* dark Maison story */
@@ -104,5 +105,11 @@
   .cr-cards { display: grid; grid-auto-flow: column; grid-auto-columns: 280px; grid-template-columns: none; overflow-x: auto; scroll-snap-type: x mandatory; margin: 0 calc(-1 * var(--side)); padding: 0 var(--side) 8px; scrollbar-width: none; }
   .cr-cards .review { padding: 32px 24px; scroll-snap-align: start; }
   .cr-score { font-size: 64px; }
+  .tier__line { display: none; }
+  .tier__inline { display: block; }
+  body[data-page="product"] .maison-story { display: none; }
   body[data-page="product"] { padding-bottom: 0; }
 }
+
+/* Figma "Product — Fleur Silencieuse": "Pairs well with" runs straight into the dark Maison story */
+@media (min-width: 900px) { section[aria-labelledby="pairs-h"] { padding-bottom: 8px; } }

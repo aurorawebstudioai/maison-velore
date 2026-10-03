@@ -89,7 +89,7 @@
     document.querySelector('[data-ss-label]').textContent = p.name;
     const ni = NOTE_IMG[p.id];
     document.querySelector('[data-pyramid]').innerHTML = [['top', 'Top notes'], ['heart', 'Heart notes'], ['base', 'Base notes']].map(([k, t], i) => `
-      <div class="tier reveal"><p class="tier__n num">0${i + 1}</p><div class="tier__img">${MV.img(man, ni[i], { sizes: '176px', alt: '' })}</div><h3 class="t-h4">${t}</h3>${p[k].map((n) => `<p class="t-body muted">${MV.esc(n)}</p>`).join('')}</div>`).join('');
+      <div class="tier reveal"><p class="tier__n num">0${i + 1}</p><div class="tier__img">${MV.img(man, ni[i], { sizes: '176px', alt: '' })}</div><h3 class="t-h4">${t}</h3>${p[k].map((n) => `<p class="t-body muted tier__line">${MV.esc(n)}</p>`).join('')}<p class="t-body muted tier__inline">${p[k].map(MV.esc).join(' · ')}</p></div>`).join('');
 
     /* ---------- pairs / reviews / also like ---------- */
     const byId = Object.fromEntries(products.map((x) => [x.id, x]));

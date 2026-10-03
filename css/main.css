@@ -166,7 +166,7 @@ input, select, textarea { font: inherit; color: inherit; }
 .chip[aria-pressed="true"], .chip.is-active { background: var(--ink); border-color: var(--ink); color: var(--paper); }
 .chip--removable { background: var(--sand); border-color: var(--sand); }
 .chip svg { width: 9px; height: 9px; }
-.check { display: flex; align-items: center; gap: 12px; min-height: 34px; font-size: 14px; cursor: pointer; }
+.check { display: flex; align-items: center; gap: 12px; min-height: 30px; font-size: 14px; cursor: pointer; }
 .check input { appearance: none; width: 16px; height: 16px; margin: 0; border: 1px solid var(--muted); display: grid; place-content: center; flex: none; cursor: pointer; }
 .check input:checked { background: var(--ink); border-color: var(--ink); }
 .check input:checked::after { content: ""; width: 9px; height: 5px; border-left: 1.5px solid var(--paper); border-bottom: 1.5px solid var(--paper); transform: rotate(-45deg) translate(1px, -1px); }

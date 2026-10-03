@@ -2,7 +2,7 @@
 (() => {
   const MV = (window.MV = window.MV || {});
   const cache = {};
-  MV.json = (url) => (cache[url] = cache[url] || fetch(url).then((r) => { if (!r.ok) throw new Error(url + ' ' + r.status); return r.json(); }));
+  MV.json = (url) => (cache[url] = cache[url] || (window.MV_DATA && window.MV_DATA[url] ? Promise.resolve(window.MV_DATA[url]) : fetch(url).then((r) => { if (!r.ok) throw new Error(url + ' ' + r.status); return r.json(); })));
   MV.products = () => MV.json('data/products.json');
   MV.manifest = () => MV.json('assets/img/manifest.json');
   MV.reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;

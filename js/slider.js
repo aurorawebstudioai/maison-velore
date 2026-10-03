@@ -95,7 +95,7 @@
         const f = (c.f || [])[0] || {};
         let mi = '', ms = '100% 100%', mp = '0 0';
         if (f.g) mi = gradientCss(f, c.s[0], c.s[1]);
-        else if (f.i) { const u = src(f.i); imgUrls.add(u); mi = `url("${u}")`; const b = imageBox(f, c.s[0], c.s[1]); ms = b.size; mp = b.pos; }
+        else if (f.i) { const masks = (window.MV_DATA && window.MV_DATA.masks) || {}; const u = masks[f.i] || src(f.i); mi = `url("${u}")`; const b = imageBox(f, c.s[0], c.s[1]); ms = b.size; mp = b.pos; }
         else if (f.c) mi = `linear-gradient(${f.c},${f.c})`;
         if (mi) { wrap.style.webkitMaskImage = wrap.style.maskImage = mi; wrap.style.webkitMaskSize = wrap.style.maskSize = ms; wrap.style.webkitMaskPosition = wrap.style.maskPosition = mp; wrap.style.webkitMaskRepeat = wrap.style.maskRepeat = 'no-repeat'; }
         host.appendChild(wrap);
