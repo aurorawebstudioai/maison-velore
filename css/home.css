@@ -85,9 +85,9 @@
 
 @media (max-width: 1099px) {
   .story-grid { grid-template-columns: 1fr 1fr; }
-  .story-collage { height: 520px; }
-  .story-collage__a { width: 78%; height: 85%; }
-  .story-collage__b { left: 52%; top: 52%; width: 44%; height: auto; aspect-ratio: 4 / 5; }
+  .story-collage { height: auto; aspect-ratio: 6 / 5; }
+  .story-collage__a { width: 64%; height: auto; aspect-ratio: 4 / 5; }
+  .story-collage__b { left: 54%; top: 32%; width: 44%; height: auto; aspect-ratio: 4 / 5; }
   .pillars ul { grid-template-columns: repeat(2, 1fr); }
   .tiles { grid-template-columns: repeat(3, 1fr); }
   .journal-grid { grid-template-columns: repeat(2, 1fr); }
@@ -101,7 +101,7 @@
   .reviews__track { grid-auto-columns: calc((100% - 24px) / 2); }
 }
 @media (max-width: 599px) {
-  .story-collage { height: auto; }
+  .story-collage { height: auto; aspect-ratio: auto; }
   .story-collage__a { position: relative; width: 100%; height: auto; aspect-ratio: 4 / 5; }
   .story-collage__b { display: none; }
   .story-text { gap: 24px; }

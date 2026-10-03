@@ -47,4 +47,4 @@
 .hero-arrow svg path { stroke-width: 1.3; }
 .hero-arrow:hover svg circle { fill: color-mix(in srgb, currentColor 10%, transparent); }
 .hero[data-mode="mobile"] .hero-progress { gap: 6px; }
-.hero[data-mode="mobile"] .hero-cta { font-size: 13px; }
+.hero[data-mode="mobile"] .hero-cta { font-size: 17px; letter-spacing: 0; }
