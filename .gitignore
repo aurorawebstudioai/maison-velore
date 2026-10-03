@@ -1,5 +1,15 @@
-optimized/
+# dependencies
 node_modules/
+
+# secrets / local env
+.env
+.env.*
+*.env
+
+# original (unoptimized) source images — the site ships the WebP files in assets/img/
+optimized/
+
+# OS / tooling
 .DS_Store
 Thumbs.db
 .vercel
