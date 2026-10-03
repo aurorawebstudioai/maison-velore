@@ -1,0 +1,324 @@
+[
+  {
+    "id": "fleur-silencieuse",
+    "n": "01",
+    "name": "Fleur Silencieuse",
+    "family": "Floral",
+    "mood": "Soft, luminous, quietly romantic",
+    "tagline": "A peony in the first light of morning.",
+    "desc": "Fleur Silencieuse opens like a window onto a garden at dawn: dewy pink pepper and pear blossom give way to a full, velvety peony and sunlit jasmine. A veil of white musk keeps it close to the skin, tender and unhurried. It is a floral for people who prefer to be remembered, not announced.",
+    "top": [
+      "Pink pepper",
+      "Pear blossom"
+    ],
+    "heart": [
+      "Peony",
+      "Jasmine"
+    ],
+    "base": [
+      "White musk",
+      "Blond cedar"
+    ],
+    "pairs": [
+      "lavande-de-provence",
+      "iris-poudre"
+    ],
+    "concentration": "Eau de Parfum",
+    "prices_eur": {
+      "10ml": 35,
+      "50ml": 120,
+      "100ml": 180
+    },
+    "sample_2ml_eur": 6
+  },
+  {
+    "id": "soleil-dagrumes",
+    "n": "02",
+    "name": "Soleil d'Agrumes",
+    "family": "Citrus",
+    "mood": "Bright, clean, effortlessly sunny",
+    "tagline": "Midday on a Mediterranean terrace.",
+    "desc": "Sparkling bergamot and lemon zest meet creamy neroli blossom in a scent that feels like cold water on a hot afternoon. White musk and a touch of driftwood give the freshness a soft, lasting finish. Light enough for every day, refined enough to be remembered.",
+    "top": [
+      "Bergamot",
+      "Lemon zest"
+    ],
+    "heart": [
+      "Neroli",
+      "Petitgrain"
+    ],
+    "base": [
+      "White musk",
+      "Driftwood"
+    ],
+    "pairs": [
+      "brise-marine",
+      "jardin-vert"
+    ],
+    "concentration": "Eau de Parfum",
+    "prices_eur": {
+      "10ml": 35,
+      "50ml": 120,
+      "100ml": 180
+    },
+    "sample_2ml_eur": 6
+  },
+  {
+    "id": "bois-intemporel",
+    "n": "03",
+    "name": "Bois Intemporel",
+    "family": "Woody",
+    "mood": "Deep, calm, grounded",
+    "tagline": "An old study, a warm lamp, a long evening.",
+    "desc": "Black pepper and cardamom sharpen the opening before smoothed cedar and creamy sandalwood settle in. Vetiver and oakmoss anchor the base with a dry, earthy depth. Bois Intemporel is the scent of things made to last: leather, paper, and well-oiled wood.",
+    "top": [
+      "Black pepper",
+      "Cardamom"
+    ],
+    "heart": [
+      "Cedar",
+      "Sandalwood"
+    ],
+    "base": [
+      "Vetiver",
+      "Oakmoss"
+    ],
+    "pairs": [
+      "nuit-orientale",
+      "velours-de-vanille"
+    ],
+    "concentration": "Eau de Parfum",
+    "prices_eur": {
+      "10ml": 35,
+      "50ml": 120,
+      "100ml": 180
+    },
+    "sample_2ml_eur": 6
+  },
+  {
+    "id": "nuit-orientale",
+    "n": "04",
+    "name": "Nuit Orientale",
+    "family": "Oriental",
+    "mood": "Warm, mysterious, magnetic",
+    "tagline": "Candlelight, incense and a thread of saffron.",
+    "desc": "Saffron and cardamom spark the opening, then incense curls through a heart of warm spice. Glowing amber, labdanum and soft leather carry the trail long after you have left the room. Nuit Orientale is made for evenings that do not end early.",
+    "top": [
+      "Saffron",
+      "Cardamom"
+    ],
+    "heart": [
+      "Incense",
+      "Cinnamon"
+    ],
+    "base": [
+      "Amber",
+      "Labdanum",
+      "Soft leather"
+    ],
+    "pairs": [
+      "bois-intemporel",
+      "rose-imperiale"
+    ],
+    "concentration": "Eau de Parfum",
+    "prices_eur": {
+      "10ml": 35,
+      "50ml": 120,
+      "100ml": 180
+    },
+    "sample_2ml_eur": 6
+  },
+  {
+    "id": "brise-marine",
+    "n": "05",
+    "name": "Brise Marine",
+    "family": "Aquatic",
+    "mood": "Cool, open, free",
+    "tagline": "Salt air and sun-bleached driftwood.",
+    "desc": "Sea salt and pink grapefruit open the scent with a cool, mineral snap. Driftwood and sea fennel add the feeling of a shoreline at low tide, while ambergris and white musk leave a soft, skin-warm glow. It smells like a deep breath by the water.",
+    "top": [
+      "Sea salt",
+      "Pink grapefruit"
+    ],
+    "heart": [
+      "Driftwood",
+      "Sea fennel"
+    ],
+    "base": [
+      "Ambergris",
+      "White musk"
+    ],
+    "pairs": [
+      "soleil-dagrumes",
+      "jardin-vert"
+    ],
+    "concentration": "Eau de Parfum",
+    "prices_eur": {
+      "10ml": 35,
+      "50ml": 120,
+      "100ml": 180
+    },
+    "sample_2ml_eur": 6
+  },
+  {
+    "id": "jardin-vert",
+    "n": "06",
+    "name": "Jardin Vert",
+    "family": "Green",
+    "mood": "Fresh, leafy, alive",
+    "tagline": "A fig tree in a walled garden.",
+    "desc": "Torn basil and green mandarin bring a crisp, herbal brightness. At the heart, fig leaf and the milky sweetness of ripe fig make the scent feel sun-warmed and slightly wild. Vetiver and cedar keep it dry and elegant. Green without being sharp, natural without being plain.",
+    "top": [
+      "Basil",
+      "Green mandarin"
+    ],
+    "heart": [
+      "Fig leaf",
+      "Ripe fig"
+    ],
+    "base": [
+      "Vetiver",
+      "Cedar"
+    ],
+    "pairs": [
+      "soleil-dagrumes",
+      "brise-marine"
+    ],
+    "concentration": "Eau de Parfum",
+    "prices_eur": {
+      "10ml": 35,
+      "50ml": 120,
+      "100ml": 180
+    },
+    "sample_2ml_eur": 6
+  },
+  {
+    "id": "lavande-de-provence",
+    "n": "07",
+    "name": "Lavande de Provence",
+    "family": "Aromatic",
+    "mood": "Calm, clear, restorative",
+    "tagline": "Lavender fields in the last warm light.",
+    "desc": "Rosemary and bergamot open with a clean, herbal lift, leading to sun-dried lavender and the soft, powdery sweetness of clary sage. Oakmoss and white musk round it out with a calm, comforting base. A modern take on the classic, with all the stress removed.",
+    "top": [
+      "Rosemary",
+      "Bergamot"
+    ],
+    "heart": [
+      "Lavender",
+      "Clary sage"
+    ],
+    "base": [
+      "Oakmoss",
+      "White musk"
+    ],
+    "pairs": [
+      "fleur-silencieuse",
+      "iris-poudre"
+    ],
+    "concentration": "Eau de Parfum",
+    "prices_eur": {
+      "10ml": 35,
+      "50ml": 120,
+      "100ml": 180
+    },
+    "sample_2ml_eur": 6
+  },
+  {
+    "id": "velours-de-vanille",
+    "n": "08",
+    "name": "Velours de Vanille",
+    "family": "Gourmand",
+    "mood": "Cozy, creamy, enveloping",
+    "tagline": "Warm vanilla, caramel and a cashmere blanket.",
+    "desc": "Toasted almond and cardamom open the scent with a gentle sweetness. Vanilla orchid and cocoa give the heart its velvet texture, and tonka bean, caramel and sandalwood leave a warm, lingering finish. Indulgent but never sugary, the scent equivalent of soft light on a cold afternoon.",
+    "top": [
+      "Toasted almond",
+      "Cardamom"
+    ],
+    "heart": [
+      "Vanilla orchid",
+      "Cocoa"
+    ],
+    "base": [
+      "Tonka bean",
+      "Caramel",
+      "Sandalwood"
+    ],
+    "pairs": [
+      "bois-intemporel",
+      "nuit-orientale"
+    ],
+    "concentration": "Eau de Parfum",
+    "prices_eur": {
+      "10ml": 35,
+      "50ml": 120,
+      "100ml": 180
+    },
+    "sample_2ml_eur": 6
+  },
+  {
+    "id": "rose-imperiale",
+    "n": "09",
+    "name": "Rose Impériale",
+    "family": "Rose",
+    "mood": "Bold, opulent, unapologetic",
+    "tagline": "A damask rose with a dark side.",
+    "desc": "Pink pepper and raspberry make a bright, juicy opening, but the star is the deep, velvety damask rose at the heart. Patchouli and soft amber pull it into a darker, more sensual register. This is not a delicate rose; it is a rose with presence.",
+    "top": [
+      "Pink pepper",
+      "Raspberry"
+    ],
+    "heart": [
+      "Damask rose",
+      "Peony"
+    ],
+    "base": [
+      "Patchouli",
+      "Amber"
+    ],
+    "pairs": [
+      "nuit-orientale",
+      "fleur-silencieuse"
+    ],
+    "concentration": "Eau de Parfum",
+    "prices_eur": {
+      "10ml": 35,
+      "50ml": 120,
+      "100ml": 180
+    },
+    "sample_2ml_eur": 6
+  },
+  {
+    "id": "iris-poudre",
+    "n": "10",
+    "name": "Iris Poudré",
+    "family": "Powdery",
+    "mood": "Soft, refined, quietly modern",
+    "tagline": "Cool iris, fine powder, clean cotton.",
+    "desc": "Mandarin and violet leaf open lightly, before the precious, buttery iris and orris root appear at the heart, cool, powdery and elegant. Soft musk and cotton close the scent like clean linen on warm skin. A refined, minimal fragrance for people who like their luxury understated.",
+    "top": [
+      "Mandarin",
+      "Violet leaf"
+    ],
+    "heart": [
+      "Iris",
+      "Orris root"
+    ],
+    "base": [
+      "Soft musk",
+      "Cotton accord"
+    ],
+    "pairs": [
+      "fleur-silencieuse",
+      "lavande-de-provence"
+    ],
+    "concentration": "Eau de Parfum",
+    "prices_eur": {
+      "10ml": 35,
+      "50ml": 120,
+      "100ml": 180
+    },
+    "sample_2ml_eur": 6
+  }
+]

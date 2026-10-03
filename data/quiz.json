@@ -1,0 +1,182 @@
+{
+  "howItWorks": "Each answer adds a point to 2–3 perfumes. The perfume with the most points after the last question is the result. On a tie, pick the one that appears first in the list below.",
+  "questions": [
+    {
+      "q": "Where would you rather spend a free afternoon?",
+      "answers": [
+        {
+          "a": "A garden in full bloom",
+          "scores": [
+            "fleur-silencieuse",
+            "jardin-vert",
+            "rose-imperiale"
+          ]
+        },
+        {
+          "a": "A sunny seaside terrace",
+          "scores": [
+            "soleil-dagrumes",
+            "brise-marine"
+          ]
+        },
+        {
+          "a": "A quiet library or study",
+          "scores": [
+            "bois-intemporel",
+            "iris-poudre",
+            "lavande-de-provence"
+          ]
+        },
+        {
+          "a": "A candlelit room with friends",
+          "scores": [
+            "nuit-orientale",
+            "velours-de-vanille",
+            "rose-imperiale"
+          ]
+        }
+      ]
+    },
+    {
+      "q": "Which time of day feels most like you?",
+      "answers": [
+        {
+          "a": "Early morning",
+          "scores": [
+            "fleur-silencieuse",
+            "jardin-vert",
+            "iris-poudre"
+          ]
+        },
+        {
+          "a": "Bright midday",
+          "scores": [
+            "soleil-dagrumes",
+            "brise-marine"
+          ]
+        },
+        {
+          "a": "Golden hour",
+          "scores": [
+            "lavande-de-provence",
+            "bois-intemporel",
+            "velours-de-vanille"
+          ]
+        },
+        {
+          "a": "Deep night",
+          "scores": [
+            "nuit-orientale",
+            "rose-imperiale"
+          ]
+        }
+      ]
+    },
+    {
+      "q": "Pick a fabric.",
+      "answers": [
+        {
+          "a": "Silk",
+          "scores": [
+            "fleur-silencieuse",
+            "rose-imperiale",
+            "iris-poudre"
+          ]
+        },
+        {
+          "a": "Crisp linen",
+          "scores": [
+            "soleil-dagrumes",
+            "brise-marine",
+            "jardin-vert",
+            "lavande-de-provence"
+          ]
+        },
+        {
+          "a": "Wool and leather",
+          "scores": [
+            "bois-intemporel",
+            "nuit-orientale"
+          ]
+        },
+        {
+          "a": "Cashmere",
+          "scores": [
+            "velours-de-vanille",
+            "iris-poudre"
+          ]
+        }
+      ]
+    },
+    {
+      "q": "How should people remember you?",
+      "answers": [
+        {
+          "a": "As calm and graceful",
+          "scores": [
+            "fleur-silencieuse",
+            "iris-poudre",
+            "lavande-de-provence"
+          ]
+        },
+        {
+          "a": "As fresh and energetic",
+          "scores": [
+            "soleil-dagrumes",
+            "brise-marine",
+            "jardin-vert"
+          ]
+        },
+        {
+          "a": "As deep and thoughtful",
+          "scores": [
+            "bois-intemporel",
+            "velours-de-vanille"
+          ]
+        },
+        {
+          "a": "As bold and unforgettable",
+          "scores": [
+            "nuit-orientale",
+            "rose-imperiale"
+          ]
+        }
+      ]
+    },
+    {
+      "q": "Your favourite drink?",
+      "answers": [
+        {
+          "a": "Sparkling water with lemon",
+          "scores": [
+            "soleil-dagrumes",
+            "brise-marine"
+          ]
+        },
+        {
+          "a": "Green tea or herbal tea",
+          "scores": [
+            "jardin-vert",
+            "lavande-de-provence",
+            "fleur-silencieuse"
+          ]
+        },
+        {
+          "a": "Espresso or whisky",
+          "scores": [
+            "bois-intemporel",
+            "nuit-orientale"
+          ]
+        },
+        {
+          "a": "Hot chocolate or a latte",
+          "scores": [
+            "velours-de-vanille",
+            "iris-poudre",
+            "rose-imperiale"
+          ]
+        }
+      ]
+    }
+  ]
+}

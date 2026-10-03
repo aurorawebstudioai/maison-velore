@@ -1,0 +1,54 @@
+[
+  {
+    "id": "scent-of-the-mediterranean",
+    "cover": "journal_01_mediterranean",
+    "category": "Places",
+    "title": "The scent of the Mediterranean",
+    "excerpt": "A journey through sunlit landscapes, where nature inspires a deeper connection.",
+    "read": "4 min",
+    "body": [
+      "Walk through any hillside village along the Mediterranean in late afternoon and the air itself seems composed: warm stone, wild thyme, crushed olive leaves, and a trace of salt carried up from the sea.",
+      "It is this layered, unhurried atmosphere that inspired Soleil d'Agrumes and Brise Marine. Neither tries to recreate a place literally. Instead, they capture how the place feels: bright, open, and slightly timeless.",
+      "Next time you travel somewhere, try noticing the smell before the view. It is often the part you remember longest."
+    ]
+  },
+  {
+    "id": "art-of-natural-ingredients",
+    "cover": "journal_02_ingredients",
+    "category": "Craftsmanship",
+    "title": "The art of natural ingredients",
+    "excerpt": "How rare botanicals are transformed into extraordinary fragrances.",
+    "read": "5 min",
+    "body": [
+      "A single bottle of perfume can contain dozens of ingredients, and each begins as something simple: a petal, a root, a resin, a peel.",
+      "Jasmine is picked at dawn, when the flowers are at their most fragrant. Iris roots are aged for years before they develop their buttery, powdery character. Each step asks for patience, and that patience is the difference between a scent that is merely pleasant and one that has depth.",
+      "At Maison Veloré, we treat ingredients as the starting point of every composition, never an afterthought."
+    ]
+  },
+  {
+    "id": "fragrance-in-summer",
+    "cover": "journal_03_summer",
+    "category": "Guide",
+    "title": "How to wear fragrance in summer",
+    "excerpt": "Lighter, cooler and smarter: a short guide to scent in warm weather.",
+    "read": "3 min",
+    "body": [
+      "Heat changes how a perfume behaves: it blooms faster, projects further and can feel heavy on a hot day.",
+      "Choose citrus, green or aquatic compositions, and apply to pulse points a little less than you would in winter. Keep a 10 ml travel spray in your bag and refresh after midday rather than layering more in the morning.",
+      "Store your bottles somewhere cool and out of direct sunlight. Heat is the quickest way to dull a good perfume."
+    ]
+  },
+  {
+    "id": "art-of-layering",
+    "cover": "journal_04_layering",
+    "category": "Guide",
+    "title": "The art of layering scents",
+    "excerpt": "Two fragrances, one signature. How to combine scents without clashing.",
+    "read": "4 min",
+    "body": [
+      "Layering is simply building a scent that no one else wears. The easiest approach is to pair one fragrance from the same family with one that offers contrast.",
+      "Start with the lighter scent, then add the richer one on top, and use fewer sprays than you think you need. Soleil d'Agrumes with Bois Intemporel brings warmth to citrus; Fleur Silencieuse with Iris Poudré turns a floral into something softer and cooler.",
+      "Give a combination a full day before you decide. Perfume changes on skin, and the best pairings reveal themselves slowly."
+    ]
+  }
+]
