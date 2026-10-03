@@ -33,4 +33,4 @@ All texts, names, notes and prices come from `content/Тексты_сайта.md
 
 ## Deploy
 
-`vercel` from this folder (or connect the git repo). `vercel.json` enables clean URLs and long caching for `/assets`. After deploying, change `og:image` to an absolute URL on your domain.
+`vercel` from this folder (or connect the git repo). `vercel.json` enables clean URLs and long caching for `/assets`. Live: https://maison-velore-phi.vercel.app (auto-deploys from GitHub main). `og:image` points to https://maison-velore-phi.vercel.app — change it if you add a custom domain.
