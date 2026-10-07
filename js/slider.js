@@ -165,7 +165,7 @@
       e.style.lineHeight = typeof t.lh === 'number' ? t.lh + 'px' : typeof t.lh === 'string' && t.lh.endsWith('%') ? (parseFloat(t.lh) / 100).toFixed(3) : '1.2';
       if (t.ls && t.ls !== '0%') e.style.letterSpacing = (parseFloat(t.ls) / 100).toFixed(3) + 'em';
       e.style.whiteSpace = 'pre';
-      if (t.n === 'title') { const a = document.createElement('a'); a.href = `product.html?id=${product}`; a.textContent = t.tx; e.appendChild(a); }
+      if (t.n === 'title') { const a = document.createElement('a'); a.href = `product.html?id=${product}`; a.draggable = false; a.textContent = t.tx; e.appendChild(a); }
       else e.textContent = t.tx;
       text.appendChild(e);
     }
@@ -173,7 +173,9 @@
     slidesEl.appendChild(host);
     return (built[i] = { i, host, layers, text, lines: [...text.children], bottle: bottleBox || { x: cfg.w * 0.6, y: cfg.h * 0.5 } });
   }
-  const preload = (i) => { const s = buildSlide(i); const urls = [...s.host.querySelectorAll('.l')].flatMap((n) => [...(n.style.backgroundImage || '').matchAll(/url\("([^"]+)"\)/g)].map((m) => m[1])); return Promise.all([...new Set(urls)].map((u) => new Promise((res) => { const im = new Image(); im.onerror = res; im.onload = () => (im.decode ? im.decode().then(res, res) : res()); im.src = u; }))); };
+  let preloaded = {};
+  const preload = (i) => preloaded[i] || (preloaded[i] = preloadNow(i));
+  const preloadNow = (i) => { const s = buildSlide(i); const urls = [...s.host.querySelectorAll('.l')].flatMap((n) => [...(n.style.backgroundImage || '').matchAll(/url\("([^"]+)"\)/g)].map((m) => m[1])); return Promise.all([...new Set(urls)].map((u) => new Promise((res) => { const im = new Image(); im.onerror = res; im.onload = () => (im.decode ? im.decode().then(res, res) : res()); im.src = u; }))); };
   const near = (i) => [i, (i + 1) % 10, (i + 9) % 10];
 
   /* ---------- UI (controls, button) ---------- */
@@ -220,12 +222,12 @@
     if (dir == null) { const f = (to - cur + 10) % 10; dir = f <= 5 ? 1 : -1; }
     busy = true;
     const A = buildSlide(cur), B = buildSlide(to);
-    await Promise.race([preload(to), new Promise((r) => setTimeout(r, 900))]);
-    stopFloat(A); resetParallax(A);
+    await Promise.race([preload(to), new Promise((r) => setTimeout(r, 400))]);
+    stopFloat(A);
     B.host.style.visibility = 'visible'; B.host.style.zIndex = 2; A.host.style.zIndex = 1;
     B.host.setAttribute('aria-hidden', 'false'); A.host.setAttribute('aria-hidden', 'true');
     const from = cur; cur = to;
-    const done = () => { A.host.style.visibility = 'hidden'; gsap.set(A.layers.map((r) => r.tr), { clearProps: 'transform,opacity,willChange' }); gsap.set(A.lines, { clearProps: 'transform,opacity' }); setWill(A, false); setWill(B, false); busy = false; startFloat(B); (window.requestIdleCallback || ((f) => setTimeout(f, 300)))(() => near(cur).forEach(preload)); };
+    const done = () => { A.host.style.visibility = 'hidden'; clearOffsets(A); setPxWill(A, false); if (hovering && mode === 'desktop') setPxWill(B, true); gsap.set(A.layers.map((r) => r.tr), { clearProps: 'transform,opacity,willChange' }); gsap.set(A.lines, { clearProps: 'transform,opacity' }); setWill(A, false); busy = false; startFloat(B); (window.requestIdleCallback || ((f) => setTimeout(f, 300)))(() => near(cur).forEach(preload)); };
     paintUI(to);
     if (reduced) { gsap.fromTo(B.host, { opacity: 0 }, { opacity: 1, duration: 0.45, ease: 'power1.out', onComplete: () => { gsap.set(B.host, { clearProps: 'opacity' }); done(); } }); return; }
     setWill(A, true); setWill(B, true);
@@ -241,36 +243,40 @@
     A.layers.filter((r) => r.L.role === 'bottleShadow').forEach((r) => tl.to(r.tr, { opacity: 0, duration: 0.3, ease: 'power1.in' }, 0.14));
     A.layers.filter((r) => r.L.role === 'bottle').forEach((r) => tl.to(r.tr, { x: -dir * 760 * k, y: -20, rotation: -dir * 13, opacity: 0, duration: 0.66, ease: 'power3.in' }, 0.16));
     B.layers.filter((r) => r.L.role === 'bg' || r.L.role === 'grade').forEach((r) => tl.fromTo(r.tr, { opacity: 0 }, { opacity: 1, duration: 0.8, ease: 'power1.inOut' }, 0.3));
-    tl.to(A.lines, { y: -26, opacity: 0, duration: 0.34, stagger: 0.035, ease: 'power2.in' }, 0.08);
+    tl.to(A.lines, { y: -26, opacity: 0, duration: 0.34, stagger: 0.035, ease: 'power2.in', force3D: false }, 0.08);
     /* 4. new bottle enters with a soft overshoot; ingredients fly in and settle; floor drops in */
     B.layers.filter((r) => r.L.role === 'bottle').forEach((r) => tl.fromTo(r.tr, { x: dir * 760 * k, y: 0, rotation: dir * 13, opacity: 0 }, { x: 0, rotation: 0, opacity: 1, duration: 0.78, ease: 'back.out(1.25)' }, 0.52));
     B.layers.filter((r) => r.L.role === 'bottleShadow').forEach((r) => tl.fromTo(r.tr, { opacity: 0 }, { opacity: 1, duration: 0.42, ease: 'power1.out' }, 0.98));
     const inFly = B.layers.filter(isFlyer).sort((a, b) => b.area - a.area);
-    inFly.forEach((r, n) => { const [vx, vy] = scatterVec(r, B); const dist = (260 + 420 * Math.min(r.depth, 1.3)) * k; tl.fromTo(r.tr, { x: vx * dist + dir * 90 * k, y: vy * dist, rotation: -rand(16, 34) * (vx >= 0 ? 1 : -1), scale: 0.9, opacity: 0 }, { x: 0, y: 0, rotation: 0, scale: 1, opacity: 1, duration: 0.5 + 0.2 * Math.min(r.depth, 1.2), ease: 'power3.out' }, 0.56 + Math.min(n * 0.006, 0.16)); });
+    inFly.forEach((r, n) => { const [vx, vy] = scatterVec(r, B); const dist = (260 + 420 * Math.min(r.depth, 1.3)) * k; tl.fromTo(r.tr, { x: vx * dist + dir * 90 * k, y: vy * dist, rotation: -rand(16, 34) * (vx >= 0 ? 1 : -1), opacity: 0 }, { x: 0, y: 0, rotation: 0, opacity: 1, duration: 0.5 + 0.2 * Math.min(r.depth, 1.2), ease: 'power3.out' }, 0.56 + Math.min(n * 0.006, 0.16)); });
     B.layers.filter((r) => r.L.role === 'floor').forEach((r, n) => tl.fromTo(r.tr, { y: -60 * k, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: 'bounce.out' }, 0.74 + n * 0.04));
-    B.layers.filter((r) => r.L.role === 'floorShadow').forEach((r) => tl.fromTo(r.tr, { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5, ease: 'power2.out' }, 0.82));
+    B.layers.filter((r) => r.L.role === 'floorShadow').forEach((r) => tl.fromTo(r.tr, { y: -14 * k, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out' }, 0.82));
     /* 5. text lines slide up with a stagger */
     if (pendingColors) { tl.call(pendingColors, null, 0.42); pendingColors = null; }
-    tl.fromTo(B.lines, { y: 34, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, stagger: 0.06, ease: 'power3.out' }, 0.78);
-    tl.fromTo(ui.querySelector('.hero-cta'), { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: 'power3.out' }, 0.98);
+    tl.fromTo(B.lines, { y: 34, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, stagger: 0.06, ease: 'power3.out', force3D: false }, 0.78);
+    tl.fromTo(ui.querySelector('.hero-cta'), { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: 'power3.out', force3D: false }, 0.98);
   }
   const setWill = (s, on) => s.layers.forEach((r) => (r.tr.style.willChange = on ? 'transform, opacity' : ''));
 
-  /* ---------- idle: float + parallax ---------- */
+  /* ---------- idle: float + parallax + drag offsets ---------- */
   function startFloat(s) {
     if (reduced || lite) return;
-    s.floats = s.layers.filter((r) => isFlyer(r)).map((r) => gsap.to(r.fl, { y: rand(5, 13) * (Math.random() < 0.5 ? -1 : 1), rotation: rand(1.5, 4.5) * (Math.random() < 0.5 ? -1 : 1), duration: rand(3.2, 6), ease: 'sine.inOut', yoyo: true, repeat: -1, delay: rand(0, 1.5) }));
+    if (s.floats) s.floats.forEach((t) => t.kill());
+    const flyers = s.layers.filter(isFlyer);
+    flyers.forEach((r) => (r.fl.style.willChange = 'transform')); /* composited: moving them no longer repaints blur/shadows */
+    s.floats = flyers.map((r) => gsap.to(r.fl, { y: rand(5, 13) * (Math.random() < 0.5 ? -1 : 1), rotation: rand(1.5, 4.5) * (Math.random() < 0.5 ? -1 : 1), duration: rand(3.2, 6), ease: 'sine.inOut', yoyo: true, repeat: -1, delay: rand(0, 1.5) }));
   }
-  function stopFloat(s) { (s.floats || []).forEach((t) => t.kill()); s.floats = null; gsap.to(s.layers.map((r) => r.fl), { y: 0, rotation: 0, duration: 0.3 }); }
-  let qx = new Map();
-  function parallax(nx, ny) {
-    const s = built[cur]; if (!s || busy) return;
-    for (const r of s.layers) {
-      if (!qx.has(r.px)) qx.set(r.px, [gsap.quickTo(r.px, 'x', { duration: 0.9, ease: 'power3.out' }), gsap.quickTo(r.px, 'y', { duration: 0.9, ease: 'power3.out' })]);
-      const [fx, fy] = qx.get(r.px); fx(-nx * 22 * r.depth); fy(-ny * 14 * r.depth);
-    }
+  function stopFloat(s) { (s.floats || []).forEach((t) => t.kill()); s.floats = null; gsap.to(s.layers.map((r) => r.fl), { y: 0, rotation: 0, duration: 0.3, overwrite: true, onComplete: () => s.layers.forEach((r) => (r.fl.style.willChange = '')) }); }
+  /* mouse parallax (desktop) and drag-follow share one smoothed offset per layer, so they never fight */
+  let qx = new Map(), pNx = 0, pNy = 0, dragX = 0;
+  const pxTo = (r) => { if (!qx.has(r.px)) qx.set(r.px, [gsap.quickTo(r.px, 'x', { duration: 0.45, ease: 'power3.out' }), gsap.quickTo(r.px, 'y', { duration: 0.45, ease: 'power3.out' })]); return qx.get(r.px); };
+  function applyOffsets(s) {
+    if (!s) return;
+    for (const r of s.layers) { const [fx, fy] = pxTo(r); fx(-pNx * 22 * r.depth + dragX * (0.35 + 0.65 * Math.min(r.depth, 1.3))); fy(-pNy * 14 * r.depth); }
   }
-  function resetParallax(s) { gsap.to(s.layers.map((r) => r.px), { x: 0, y: 0, duration: 0.6, ease: 'power2.out' }); }
+  function clearOffsets(s) { const els = s.layers.map((r) => r.px); gsap.killTweensOf(els); els.forEach((e) => qx.delete(e)); gsap.set(els, { x: 0, y: 0 }); }
+  const setPxWill = (s, on) => s && s.layers.forEach((r) => (r.px.style.willChange = on ? 'transform' : ''));
+  function parallax(nx, ny) { pNx = nx; pNy = ny; if (!busy) applyOffsets(built[cur]); }
 
   /* ---------- autoplay ---------- */
   function restartProgress() {
@@ -289,6 +295,7 @@
     const m = w <= MOBILE_MAX ? 'mobile' : 'desktop';
     cfg = m === 'mobile' ? { w: 375, h: 812, top: 44 } : { w: 1440, h: 900, top: 0 };
     const k = w / cfg.w;
+    if (k !== stageK && built[cur] && !busy) reraster(built[cur]);
     stageK = k; lite = m === 'mobile' || matchMedia('(pointer: coarse)').matches;
     viewport.style.height = (cfg.h - cfg.top) * k + 'px';
     stage.style.width = cfg.w + 'px'; stage.style.height = cfg.h + 'px';
@@ -296,8 +303,14 @@
     root.dataset.mode = m;
     return m;
   }
+  /* GPU layers keep the resolution they were first drawn at; after a resize, redraw them once */
+  function reraster(s) {
+    const els = s.layers.flatMap((r) => [r.px, r.tr, r.fl]).filter((e) => e.style.willChange);
+    const keep = els.map((e) => e.style.willChange); els.forEach((e) => (e.style.willChange = ''));
+    requestAnimationFrame(() => requestAnimationFrame(() => els.forEach((e, n) => (e.style.willChange = keep[n]))));
+  }
   function rebuild() {
-    Object.values(built).forEach((s) => { stopFloat(s); s.host.remove(); }); built = {}; qx = new Map();
+    Object.values(built).forEach((s) => { stopFloat(s); s.host.remove(); }); built = {}; qx = new Map(); preloaded = {};
     if (ui) ui.remove();
     buildUI();
     const s = buildSlide(cur); s.host.style.visibility = 'visible'; s.host.style.zIndex = 2;
@@ -315,12 +328,40 @@
     let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => { const m = measure(); if (m !== mode) { mode = m; rebuild(); } }, 120); });
     /* input: keyboard, swipe/drag, hover, parallax */
     addEventListener('keydown', (e) => { if (e.target.closest('input, textarea, select, [contenteditable]')) return; const r = root.getBoundingClientRect(); if (r.bottom < 120 || r.top > innerHeight - 120) return; if (e.key === 'ArrowRight') { stopAutoplay(); step(1); } if (e.key === 'ArrowLeft') { stopAutoplay(); step(-1); } });
-    let sx = null, sy = 0, st = 0;
-    viewport.addEventListener('pointerdown', (e) => { if (e.target.closest('button, a')) return; sx = e.clientX; sy = e.clientY; st = Date.now(); });
-    addEventListener('pointerup', (e) => { if (sx == null) return; const dx = e.clientX - sx, dy = e.clientY - sy; sx = null; if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.2 && Date.now() - st < 900) { stopAutoplay(); step(dx < 0 ? 1 : -1); } });
-    root.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') { hovering = true; syncPause(); } });
-    root.addEventListener('pointerleave', () => { hovering = false; syncPause(); parallax(0, 0); });
-    if (!reduced && matchMedia('(pointer: fine)').matches) root.addEventListener('pointermove', (e) => { if (mode !== 'desktop') return; const r = root.getBoundingClientRect(); parallax(((e.clientX - r.left) / r.width) * 2 - 1, ((e.clientY - r.top) / r.height) * 2 - 1); });
+    let g = null, swallowClick = false;
+    const SWITCH = { mouse: 60, pen: 50, touch: 36 }; /* screen px; fingers commit sooner */
+    viewport.addEventListener('dragstart', (e) => e.preventDefault());
+    viewport.addEventListener('click', (e) => { if (swallowClick) { e.preventDefault(); e.stopPropagation(); swallowClick = false; } }, true);
+    viewport.addEventListener('pointerdown', (e) => {
+      if (e.button > 0 || e.target.closest('button')) return;
+      g = { x: e.clientX, y: e.clientY, t: performance.now(), id: e.pointerId, lock: null, done: false, min: SWITCH[e.pointerType] || 50 };
+    });
+    const endDrag = () => { if (!g) return; const wasX = g.lock === 'x'; g = null; dragX = 0; if (!busy) applyOffsets(built[cur]); if (wasX) setTimeout(() => (swallowClick = false), 0); };
+    addEventListener('pointermove', (e) => {
+      if (!g || e.pointerId !== g.id || g.done) return;
+      const dx = e.clientX - g.x, dy = e.clientY - g.y;
+      if (!g.lock) {
+        if (Math.abs(dx) > 8 && Math.abs(dx) > Math.abs(dy)) { g.lock = 'x'; swallowClick = true; setPxWill(built[cur], true); }
+        else if (Math.abs(dy) > 10) { g = null; return; }
+        else return;
+      }
+      if (busy) return;
+      dragX = dx / stageK; applyOffsets(built[cur]);
+      if (Math.abs(dx) > g.min) { g.done = true; dragX = 0; stopAutoplay(); step(dx < 0 ? 1 : -1); }
+    }, { passive: true });
+    addEventListener('pointerup', (e) => {
+      if (!g || e.pointerId !== g.id) return;
+      const dx = e.clientX - g.x, v = Math.abs(dx) / Math.max(1, performance.now() - g.t);
+      if (g.lock === 'x' && !g.done && Math.abs(dx) > 25 && v > 0.3) { stopAutoplay(); step(dx < 0 ? 1 : -1); }
+      endDrag();
+    });
+    addEventListener('pointercancel', endDrag);
+    root.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') { hovering = true; syncPause(); if (mode === 'desktop' && !reduced) setPxWill(built[cur], true); } });
+    root.addEventListener('pointerleave', (e) => { if (e.pointerType !== 'mouse') return; hovering = false; syncPause(); parallax(0, 0); setTimeout(() => { if (!hovering && !busy) setPxWill(built[cur], false); }, 600); });
+    if (!reduced && matchMedia('(pointer: fine)').matches) {
+      let raf = 0, lx = 0, ly = 0;
+      root.addEventListener('pointermove', (e) => { if (mode !== 'desktop' || e.pointerType !== 'mouse') return; lx = e.clientX; ly = e.clientY; if (raf) return; raf = requestAnimationFrame(() => { raf = 0; const r = root.getBoundingClientRect(); parallax(((lx - r.left) / r.width) * 2 - 1, ((ly - r.top) / r.height) * 2 - 1); }); });
+    }
     new IntersectionObserver(([en]) => { inView = en.isIntersecting; syncPause(); built[cur] && built[cur].floats && built[cur].floats.forEach((t) => (inView ? t.resume() : t.pause())); }, { threshold: 0.2 }).observe(root);
     document.addEventListener('visibilitychange', syncPause);
     MV.hero = { goTo, step, get index() { return cur; }, stopAutoplay };
