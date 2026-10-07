@@ -20,8 +20,10 @@ slides = json.load(open(os.path.join(ROOT, 'data', 'slides.json'), encoding='utf
 
 # ---------- 1. how wide is every slider image displayed? ----------
 need = {}
+need_m = {}  # same, for the mobile (375×812) slides — gives phones a lighter file
 
-def walk(node, scale_parent=1.0):
+def walk(node, scale_parent=1.0, acc=None):
+    acc = need if acc is None else acc
     m = node.get('m')
     sx = math.hypot(m[0], m[3]) if m else 1.0
     for f in node.get('f', []) if isinstance(node.get('f'), list) else []:
@@ -29,17 +31,18 @@ def walk(node, scale_parent=1.0):
             w = node['s'][0] * sx
             if f.get('sm') == 'CROP' and f.get('it'):
                 w = w / max(f['it'][0], 0.05)
-            need[f['i']] = max(need.get(f['i'], 0), w)
+            acc[f['i']] = max(acc.get(f['i'], 0), w)
     if node.get('img'):
-        need[node['img']] = max(need.get(node['img'], 0), node['s'][0])
+        acc[node['img']] = max(acc.get(node['img'], 0), node['s'][0])
     if isinstance(node.get('c'), list):
         for ch in node['c']:
-            walk(ch)
+            walk(ch, acc=acc)
 
 for s in slides['slides']:
-    for bp in ('desktop', 'mobile'):
-        for l in s[bp]['layers']:
-            walk(l)
+    for l in s['desktop']['layers']:
+        walk(l, acc=need)
+    for l in s['mobile']['layers']:
+        walk(l, acc=need_m)
 
 # ---------- 2. store image widths ----------
 STORE = [
@@ -80,6 +83,8 @@ for name, meta in sorted(manifest_src.items()):
     widths = set()
     if name in need:
         widths.add(min(meta['w'], math.ceil(2 * need[name])))
+    if name in need_m:
+        widths.add(min(meta['w'], math.ceil(2 * need_m[name])))
     for pat, ws in STORE:
         if re.search(pat, name):
             widths.update(ws)

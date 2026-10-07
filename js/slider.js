@@ -9,6 +9,7 @@
   const AUTOPLAY = 7000;
   const reduced = MV.reduced;
 
+  let pendingColors = null, lite = false, stageK = 1;
   let data, manifest, mode, cfg, stage, viewport, slidesEl, ui, cur = 0, busy = false, built = {}, filterCss = [];
   let autoplayOn = !reduced, autoplayTimer = null, autoStart = 0, hovering = false, inView = true, progressTween = null;
 
@@ -22,7 +23,13 @@
   const bbox = (n) => { const M = absOf(n); const pts = [[0, 0], [n.s[0], 0], [0, n.s[1]], [n.s[0], n.s[1]]].map(([x, y]) => apply(M, x, y)); const xs = pts.map((p) => p[0]), ys = pts.map((p) => p[1]); return { x: Math.min(...xs), y: Math.min(...ys), w: Math.max(...xs) - Math.min(...xs), h: Math.max(...ys) - Math.min(...ys) }; };
 
   /* ---------- paint conversion ---------- */
-  const src = (name) => { const e = manifest[name]; if (!e) return null; const ws = Object.keys(e.files).map(Number).sort((a, b) => b - a); return e.files[ws[0]]; };
+  const src = (name, shownW) => {
+    const e = manifest[name]; if (!e) return null;
+    const ws = Object.keys(e.files).map(Number).sort((a, b) => a - b);
+    if (!shownW) return e.files[ws[ws.length - 1]];
+    const need = shownW * stageK * Math.min(window.devicePixelRatio || 1, 2);
+    return e.files[ws.find((x) => x >= need) || ws[ws.length - 1]];
+  };
   const filterFor = (f) => { const p = []; if (f.exposure) p.push(`brightness(${(1 + f.exposure).toFixed(3)})`); if (f.contrast) p.push(`contrast(${(1 + f.contrast * 0.6).toFixed(3)})`); if (f.saturation) p.push(`saturate(${(1 + f.saturation).toFixed(3)})`); if (f.temperature > 0) p.push(`sepia(${(f.temperature * 0.5).toFixed(3)})`); return p.join(' '); };
   const ginv = (gt) => inv([gt[0], gt[1], gt[2], gt[3], gt[4], gt[5]]);
   const gradientCss = (g, w, h) => {
@@ -70,7 +77,7 @@
     const bgs = [], sizes = [], poss = [], reps = [];
     for (const f of fills.slice().reverse()) {
       if (f.c) { if (fills.length === 1) d.style.backgroundColor = f.c; else { bgs.push(`linear-gradient(${f.c},${f.c})`); sizes.push('100% 100%'); poss.push('0 0'); reps.push('no-repeat'); } }
-      else if (f.i) { const u = src(f.i); if (!u) continue; imgUrls.add(u); const b = imageBox(f, w, h); bgs.push(`url("${u}")`); sizes.push(b.size); poss.push(b.pos); reps.push(b.rep); if (f.f != null && filterCss[f.f]) filters.push(filterCss[f.f]); if (f.a != null) d.style.opacity = (n.o ?? 1) * f.a; }
+      else if (f.i) { const shown = w * Math.hypot(A[0], A[3]) / (f.sm === 'CROP' && f.it ? Math.max(f.it[0], 0.05) : 1); const u = src(f.i, shown); if (!u) continue; imgUrls.add(u); const b = imageBox(f, w, h); bgs.push(`url("${u}")`); sizes.push(b.size); poss.push(b.pos); reps.push(b.rep); if (f.f != null && filterCss[f.f]) filters.push(filterCss[f.f]); if (f.a != null) d.style.opacity = (n.o ?? 1) * f.a; }
       else if (f.g) { bgs.push(gradientCss(f, w, h)); sizes.push('100% 100%'); poss.push('0 0'); reps.push('no-repeat'); }
     }
     if (bgs.length) { d.style.backgroundImage = bgs.join(','); d.style.backgroundSize = sizes.join(','); d.style.backgroundPosition = poss.join(','); d.style.backgroundRepeat = reps.join(','); }
@@ -131,6 +138,7 @@
     }
     for (const L of flat) {
       if (L.role === 'ui' || L.role === 'text') continue;
+      if (lite && /grain/.test(L.n)) continue;
       /* wrappers are sized to the layer's bounding box so composited layers stay small */
       const b = bbox(L);
       const px = el('w px'), tr = el('w tr'), fl = el('w fl');
@@ -165,7 +173,7 @@
     slidesEl.appendChild(host);
     return (built[i] = { i, host, layers, text, lines: [...text.children], bottle: bottleBox || { x: cfg.w * 0.6, y: cfg.h * 0.5 } });
   }
-  const preload = (i) => { const s = buildSlide(i); const urls = [...s.host.querySelectorAll('.l')].flatMap((n) => [...(n.style.backgroundImage || '').matchAll(/url\("([^"]+)"\)/g)].map((m) => m[1])); return Promise.all([...new Set(urls)].map((u) => new Promise((res) => { const im = new Image(); im.onload = im.onerror = res; im.src = u; }))); };
+  const preload = (i) => { const s = buildSlide(i); const urls = [...s.host.querySelectorAll('.l')].flatMap((n) => [...(n.style.backgroundImage || '').matchAll(/url\("([^"]+)"\)/g)].map((m) => m[1])); return Promise.all([...new Set(urls)].map((u) => new Promise((res) => { const im = new Image(); im.onerror = res; im.onload = () => (im.decode ? im.decode().then(res, res) : res()); im.src = u; }))); };
   const near = (i) => [i, (i + 1) % 10, (i + 9) % 10];
 
   /* ---------- UI (controls, button) ---------- */
@@ -193,8 +201,8 @@
   function paintUI(i, first) {
     const c = data.slides[i].colors;
     const vars = { '--hero-text': c.text, '--hero-accent': c.accent, '--hero-on-accent': c['on-accent'] };
-    if (first || reduced) { for (const [k, v] of Object.entries(vars)) { root.style.setProperty(k, v); document.documentElement.style.setProperty(k, v); } }
-    else { gsap.to([root, document.documentElement], { ...vars, duration: 0.7, delay: 0.35, ease: 'power1.inOut' }); }
+    const apply = () => { for (const [k, v] of Object.entries(vars)) { root.style.setProperty(k, v); document.documentElement.style.setProperty(k, v); } };
+    if (first || reduced) apply(); else pendingColors = apply; /* applied once, mid-transition (see goTo) */
     ui.querySelector('[data-cur]').textContent = String(i + 1).padStart(2, '0');
     ui.querySelectorAll('[data-go]').forEach((b, k) => { b.setAttribute('aria-current', k === i ? 'true' : 'false'); });
     ui.querySelector('[data-hero-add]').setAttribute('aria-label', `Add ${data.slides[i].id.slice(3)} 100 ml to bag`);
@@ -217,7 +225,7 @@
     B.host.style.visibility = 'visible'; B.host.style.zIndex = 2; A.host.style.zIndex = 1;
     B.host.setAttribute('aria-hidden', 'false'); A.host.setAttribute('aria-hidden', 'true');
     const from = cur; cur = to;
-    const done = () => { A.host.style.visibility = 'hidden'; gsap.set(A.layers.map((r) => r.tr), { clearProps: 'transform,opacity,willChange' }); gsap.set(A.lines, { clearProps: 'transform,opacity' }); setWill(A, false); setWill(B, false); busy = false; startFloat(B); near(cur).forEach(preload); };
+    const done = () => { A.host.style.visibility = 'hidden'; gsap.set(A.layers.map((r) => r.tr), { clearProps: 'transform,opacity,willChange' }); gsap.set(A.lines, { clearProps: 'transform,opacity' }); setWill(A, false); setWill(B, false); busy = false; startFloat(B); (window.requestIdleCallback || ((f) => setTimeout(f, 300)))(() => near(cur).forEach(preload)); };
     paintUI(to);
     if (reduced) { gsap.fromTo(B.host, { opacity: 0 }, { opacity: 1, duration: 0.45, ease: 'power1.out', onComplete: () => { gsap.set(B.host, { clearProps: 'opacity' }); done(); } }); return; }
     setWill(A, true); setWill(B, true);
@@ -242,6 +250,7 @@
     B.layers.filter((r) => r.L.role === 'floor').forEach((r, n) => tl.fromTo(r.tr, { y: -60 * k, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: 'bounce.out' }, 0.74 + n * 0.04));
     B.layers.filter((r) => r.L.role === 'floorShadow').forEach((r) => tl.fromTo(r.tr, { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5, ease: 'power2.out' }, 0.82));
     /* 5. text lines slide up with a stagger */
+    if (pendingColors) { tl.call(pendingColors, null, 0.42); pendingColors = null; }
     tl.fromTo(B.lines, { y: 34, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, stagger: 0.06, ease: 'power3.out' }, 0.78);
     tl.fromTo(ui.querySelector('.hero-cta'), { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: 'power3.out' }, 0.98);
   }
@@ -249,7 +258,7 @@
 
   /* ---------- idle: float + parallax ---------- */
   function startFloat(s) {
-    if (reduced) return;
+    if (reduced || lite) return;
     s.floats = s.layers.filter((r) => isFlyer(r)).map((r) => gsap.to(r.fl, { y: rand(5, 13) * (Math.random() < 0.5 ? -1 : 1), rotation: rand(1.5, 4.5) * (Math.random() < 0.5 ? -1 : 1), duration: rand(3.2, 6), ease: 'sine.inOut', yoyo: true, repeat: -1, delay: rand(0, 1.5) }));
   }
   function stopFloat(s) { (s.floats || []).forEach((t) => t.kill()); s.floats = null; gsap.to(s.layers.map((r) => r.fl), { y: 0, rotation: 0, duration: 0.3 }); }
@@ -280,6 +289,7 @@
     const m = w <= MOBILE_MAX ? 'mobile' : 'desktop';
     cfg = m === 'mobile' ? { w: 375, h: 812, top: 44 } : { w: 1440, h: 900, top: 0 };
     const k = w / cfg.w;
+    stageK = k; lite = m === 'mobile' || matchMedia('(pointer: coarse)').matches;
     viewport.style.height = (cfg.h - cfg.top) * k + 'px';
     stage.style.width = cfg.w + 'px'; stage.style.height = cfg.h + 'px';
     stage.style.transform = `translateY(${-cfg.top * k}px) scale(${k})`;

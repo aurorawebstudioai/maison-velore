@@ -30,9 +30,9 @@
 .st--price { font-family: var(--numerals); font-weight: 500; font-variant-numeric: lining-nums; }
 
 /* controls */
-.hero-ui { position: absolute; inset: 0; z-index: 10; pointer-events: none; color: var(--hero-text); }
+.hero-ui { position: absolute; inset: 0; z-index: 10; pointer-events: none; color: var(--hero-text); transition: color .6s var(--ease); }
 .hero-ui > * { position: absolute; pointer-events: auto; }
-.hero-cta { min-height: 0; padding: 0; background: var(--hero-accent); color: var(--hero-on-accent); font: 400 16px/1 var(--sans); letter-spacing: .02em; transition: filter .2s; }
+.hero-cta { min-height: 0; padding: 0; background: var(--hero-accent); color: var(--hero-on-accent); font: 400 16px/1 var(--sans); letter-spacing: .02em; transition: filter .2s, background-color .6s var(--ease), color .6s var(--ease); }
 .hero-cta:hover { filter: brightness(1.08); }
 .hero-counter { margin: 0; font-weight: 500; letter-spacing: .02em; line-height: 1.2; }
 .hero-progress { display: flex; gap: 10px; height: 44px; align-items: center; }

@@ -81,7 +81,7 @@ input, select, textarea { font: inherit; color: inherit; }
 /* ---------- header / nav ---------- */
 .site-header { position: relative; z-index: 50; height: 90px; display: flex; align-items: center; }
 .site-header__inner { width: 100%; max-width: calc(1300px + 140px); margin: 0 auto; padding: 0 70px; display: flex; align-items: center; justify-content: space-between; }
-.site-header--over { position: absolute; left: 0; right: 0; top: 0; color: var(--hero-text, var(--ink)); }
+.site-header--over { position: absolute; left: 0; right: 0; top: 0; color: var(--hero-text, var(--ink)); transition: color .6s var(--ease); }
 .brand { font: 500 28px/1.2 var(--serif); letter-spacing: .01em; }
 .nav-links { display: flex; gap: 40px; font: 500 20px/1.2 var(--serif); }
 .nav-links a { position: relative; padding: 10px 0; }
